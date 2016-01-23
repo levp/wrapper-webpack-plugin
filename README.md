@@ -1,19 +1,37 @@
 A plugin that allows wrapping webpack output (chunks) with custom text.
 ============
 
+Installation
+------------
+
+Install locally using npm:
+`npm install wrapper-webpack-plugin --save-dev`
+
+Using webpack plugins
+------------
+
+https://webpack.github.io/docs/using-plugins.html
+
+Usage
+------------
+
+`var WebpackWrapperPlugin = require('wrapper-webpack-plugin');`
+
+The `WebpackWrapperPlugin` class has a single parameter, an object with a `header` and/or `footer` properties. These can
+be either a string or a function. A string will simply be a appended/prepended to the file output. A function is
+expected to return a string, and will receive the name of the output file as an argument.
+
 Example `webpack.config` #1
 ------------
 
-Wraps output bundle in a self invoking anonymous function and enables strict mode:
+Wraps bundle in a self invoking function and enables strict mode:
 
 ```javascript
-const WrapperPlugin = require('wrapper-webpack-plugin');
+var WebpackWrapperPlugin = require('wrapper-webpack-plugin');
 
 module.exports = {
-  entry: './src.js',
-  output: {
-    filename: 'bundle.js'
-  },
+  // other webpack config here
+  
   plugins: [
     // strict mode for the whole bundle
     new WrapperPlugin({
@@ -27,24 +45,16 @@ module.exports = {
 Example `webpack.config` #2
 ------------
 
-Prepends output bundle with a doc comment:
+Prepends bundle with a doc comment:
 
 ```javascript
-const WrapperPlugin = require('wrapper-webpack-plugin');
-
-module.exports = {
-  entry: './src.js',
-  output: {
-    filename: 'bundle.js'
-  },
-  plugins: [
-    new WrapperPlugin({
-      header: function (fileName) {
-        return '/*! ' + fileName + ', created by dev123 */\n';
-      }
-    })
-  ]
-};
+plugins: [
+  new WrapperPlugin({
+    header: function (fileName) {
+      return '/*! file: ' + fileName + ', created by dev123 */\n';
+    }
+  })
+]
 ```
 
 
