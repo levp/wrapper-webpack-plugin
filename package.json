@@ -1,0 +1,11 @@
+{
+  "name": "wrapper-webpack-plugin",
+  "version": "0.1.0",
+  "description": "A plugin that allows wrapping webpack output (chunks) with custom text.",
+  "main": "wrapper-webpack-plugin.js",
+  "author": "laserdev",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack-core": "^0.6.8"
+  }
+}
