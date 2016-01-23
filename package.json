@@ -8,6 +8,10 @@
   "dependencies": {
     "webpack-core": "^0.6.8"
   },
+  "keywords": [
+    "webpack",
+    "plugin"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/laserdev/wrapper-webpack-plugin.git"
