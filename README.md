@@ -67,6 +67,28 @@ module.exports = {
 Example `webpack.config` #3
 ------------
 
+Keeping header in a separate file:
+
+```javascript
+var fs = require('fs');
+var WrapperPlugin = require('wrapper-webpack-plugin');
+
+var headerDoc = fs.readFileSync('./header.js', 'utf8');
+
+module.exports = {
+  // other webpack config here
+
+  plugins: [
+    new WrapperPlugin({
+      header: headerDoc
+    })
+  ]
+};
+```
+
+Example `webpack.config` #4
+------------
+
 A slightly more complex example using `lodash` templates:
 
 ```javascript
@@ -90,28 +112,6 @@ module.exports = {
       header: function () {
         return template(tpl)(tplParams);
       }
-    })
-  ]
-};
-```
-
-Example `webpack.config` #4
-------------
-
-Keeping header in a separate file:
-
-```javascript
-var fs = require('fs');
-var WrapperPlugin = require('wrapper-webpack-plugin');
-
-var headerDoc = fs.readFileSync('./header.js', 'utf8');
-
-module.exports = {
-  // other webpack config here
-
-  plugins: [
-    new WrapperPlugin({
-      header: headerDoc
     })
   ]
 };
