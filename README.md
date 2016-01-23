@@ -7,11 +7,6 @@ Installation
 Install locally using npm:  
 `npm install --save-dev wrapper-webpack-plugin`
 
-New to webpack plugins?
-------------
-
-Read this: https://webpack.github.io/docs/using-plugins.html
-
 Usage
 ------------
 
@@ -69,6 +64,14 @@ Example `webpack.config` #3
 
 Keeping header in a separate file:
 
+file: `header.js`
+```javascript
+/*!
+ * my awesome app!
+ */
+```
+
+file: `webpack.config`
 ```javascript
 var fs = require('fs');
 var WrapperPlugin = require('wrapper-webpack-plugin');
