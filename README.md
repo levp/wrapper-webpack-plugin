@@ -64,7 +64,7 @@ module.exports = {
 };
 ```
 
-Example `webpack.config` #2
+Example `webpack.config` #3
 ------------
 
 A slightly more complex example using `lodash` templates:
@@ -73,6 +73,8 @@ A slightly more complex example using `lodash` templates:
 var WrapperPlugin = require('wrapper-webpack-plugin');
 var template = require('lodash.template');
 var pkg = require('./package.json');
+
+var tpl = '/*! <%= appName %> v<%= version %> | <%= author %> */\n';
 
 var tplParams = {
   appName: 'myapp',
@@ -84,11 +86,32 @@ module.exports = {
   // other webpack config here
 
   plugins: [
-    // prepend build date to code
     new WrapperPlugin({
       header: function () {
-        return template('/*! <%= appName %> v<%= version %> | <%= author %> */\n')(tplParams);
+        return template(tpl)(tplParams);
       }
+    })
+  ]
+};
+```
+
+Example `webpack.config` #4
+------------
+
+Keeping header in a separate file:
+
+```javascript
+var fs = require('fs');
+var WrapperPlugin = require('wrapper-webpack-plugin');
+
+var headerDoc = fs.readFileSync('./header.js', 'utf8');
+
+module.exports = {
+  // other webpack config here
+
+  plugins: [
+    new WrapperPlugin({
+      header: headerDoc
     })
   ]
 };
