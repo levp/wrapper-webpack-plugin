@@ -5,7 +5,7 @@
   "main": "wrapper-webpack-plugin.js",
   "author": "laserdev",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "webpack-core": "^0.6.8"
   },
   "repository": {
