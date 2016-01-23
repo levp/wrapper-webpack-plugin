@@ -1,6 +1,6 @@
 'use strict';
 
-const ConcatSource = require('webpack-core/lib/ConcatSource');
+var ConcatSource = require('webpack-core/lib/ConcatSource');
 
 /**
  * @param args
@@ -18,8 +18,8 @@ function WrapperPlugin(args) {
 }
 
 function apply(compiler) {
-  const header = this.header;
-  const footer = this.footer;
+  var header = this.header;
+  var footer = this.footer;
 
   compiler.plugin('compilation', function (compilation) {
     compilation.plugin('optimize-chunk-assets', function (chunks, done) {
@@ -29,8 +29,8 @@ function apply(compiler) {
   });
 
   function wrapFile(compilation, fileName) {
-    const headerContent = (typeof header === 'function') ? header(fileName) : header;
-    const footerContent = (typeof footer === 'function') ? footer(fileName) : footer;
+    var headerContent = (typeof header === 'function') ? header(fileName) : header;
+    var footerContent = (typeof footer === 'function') ? footer(fileName) : footer;
 
     compilation.assets[fileName] = new ConcatSource(
         String(headerContent),
