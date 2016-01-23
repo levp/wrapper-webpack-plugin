@@ -10,16 +10,17 @@ Install locally using npm:
 New to webpack plugins?
 ------------
 
-https://webpack.github.io/docs/using-plugins.html
+Read this: https://webpack.github.io/docs/using-plugins.html
 
 Usage
 ------------
 
 `var WrapperPlugin = require('wrapper-webpack-plugin');`
 
-The `WrapperPlugin` class has a single parameter, an object with a `header` and/or `footer` properties. These can
-be either a string or a function. A string will simply be a appended/prepended to the file output. A function is
-expected to return a string, and will receive the name of the output file as an argument.
+The `WrapperPlugin` class has a single parameter, an object with a `header` and/or `footer` properties. Header text will
+be *prepended* to the output file, footer text will be *appended*. These can be either a string or a function. A string
+will simply be a appended/prepended to the file output. A function is expected to return a string, and will receive the
+name of the output file as an argument.
 
 Example `webpack.config` #1
 ------------
