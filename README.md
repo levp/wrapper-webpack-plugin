@@ -1,13 +1,13 @@
-A plugin that allows wrapping webpack output (chunks) with custom text.
+A plugin that allows wrapping webpack output files (chunks) with custom text or code.
 ============
 
 Installation
 ------------
 
-Install locally using npm:
-`npm install wrapper-webpack-plugin --save-dev`
+Install locally using npm:  
+`npm install --save-dev wrapper-webpack-plugin`
 
-Using webpack plugins
+New to webpack plugins?
 ------------
 
 https://webpack.github.io/docs/using-plugins.html
@@ -15,19 +15,19 @@ https://webpack.github.io/docs/using-plugins.html
 Usage
 ------------
 
-`var WebpackWrapperPlugin = require('wrapper-webpack-plugin');`
+`var WrapperPlugin = require('wrapper-webpack-plugin');`
 
-The `WebpackWrapperPlugin` class has a single parameter, an object with a `header` and/or `footer` properties. These can
+The `WrapperPlugin` class has a single parameter, an object with a `header` and/or `footer` properties. These can
 be either a string or a function. A string will simply be a appended/prepended to the file output. A function is
 expected to return a string, and will receive the name of the output file as an argument.
 
 Example `webpack.config` #1
 ------------
 
-Wraps bundle in a self invoking function and enables strict mode:
+Wraps bundles in a self invoking function and enables strict mode:
 
 ```javascript
-var WebpackWrapperPlugin = require('wrapper-webpack-plugin');
+var WrapperPlugin = require('wrapper-webpack-plugin');
 
 module.exports = {
   // other webpack config here
@@ -48,13 +48,47 @@ Example `webpack.config` #2
 Prepends bundle with a doc comment:
 
 ```javascript
-plugins: [
-  new WrapperPlugin({
-    header: function (fileName) {
-      return '/*! file: ' + fileName + ', created by dev123 */\n';
-    }
-  })
-]
+var WrapperPlugin = require('wrapper-webpack-plugin');
+
+module.exports = {
+  // other webpack config here
+  
+  plugins: [
+    new WrapperPlugin({
+      header: function (fileName) {
+        return '/*! file: ' + fileName + ', created by dev123 */\n';
+      }
+    })
+  ]
+};
 ```
 
+Example `webpack.config` #2
+------------
 
+A slightly more complex example using `lodash` templates:
+
+```javascript
+var WrapperPlugin = require('wrapper-webpack-plugin');
+var template = require('lodash.template');
+var pkg = require('./package.json');
+
+var tplParams = {
+  appName: 'myapp',
+  author: 'dev123',
+  version: pkg.version
+};
+
+module.exports = {
+  // other webpack config here
+
+  plugins: [
+    // prepend build date to code
+    new WrapperPlugin({
+      header: function () {
+        return template('/*! <%= appName %> v<%= version %> | <%= author %> */\n')(tplParams);
+      }
+    })
+  ]
+};
+```
