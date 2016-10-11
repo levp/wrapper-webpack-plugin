@@ -1,14 +1,11 @@
-A webpack plugin that wraps output files (chunks) with custom text or code.
-============
+#A webpack plugin that wraps output files (chunks) with custom text or code.
 
-Installation
-------------
+## Installation
 
 Install locally using npm:  
-`npm install --save-dev wrapper-webpack-plugin`
+`npm i wrapper-webpack-plugin`
 
-Usage
-------------
+## Usage
 
 `var WrapperPlugin = require('wrapper-webpack-plugin');`
 
@@ -17,8 +14,16 @@ be *prepended* to the output file, footer text will be *appended*. These can be 
 will simply be a appended/prepended to the file output. A function is expected to return a string, and will receive the
 name of the output file as an argument.
 
-Example `webpack.config` #1
-------------
+## API
+
+```
+function WrapperPlugin({
+    header: string | function,
+    footer: string | function
+})
+```
+
+## Example configuration #1
 
 Wraps bundles in a self invoking function and enables strict mode:
 
@@ -38,8 +43,7 @@ module.exports = {
 };
 ```
 
-Example `webpack.config` #2
-------------
+## Example configuration #2
 
 Prepends bundle with a doc comment:
 
@@ -59,8 +63,7 @@ module.exports = {
 };
 ```
 
-Example `webpack.config` #3
-------------
+## Example configuration #3
 
 Keeping header in a separate file:
 
@@ -89,8 +92,7 @@ module.exports = {
 };
 ```
 
-Example `webpack.config` #4
-------------
+## Example configuration #4
 
 A slightly more complex example using `lodash` templates:
 
@@ -99,13 +101,7 @@ var WrapperPlugin = require('wrapper-webpack-plugin');
 var template = require('lodash.template');
 var pkg = require('./package.json');
 
-var tpl = '/*! <%= appName %> v<%= version %> | <%= author %> */\n';
-
-var tplParams = {
-  appName: 'myapp',
-  author: 'dev123',
-  version: pkg.version
-};
+var tpl = '/*! <%= name %> v<%= version %> | <%= author %> */\n';
 
 module.exports = {
   // other webpack config here
@@ -113,7 +109,7 @@ module.exports = {
   plugins: [
     new WrapperPlugin({
       header: function () {
-        return template(tpl)(tplParams);
+        return template(tpl)(pkg);
       }
     })
   ]
