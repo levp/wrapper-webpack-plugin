@@ -119,3 +119,13 @@ module.exports = {
   ]
 };
 ```
+
+## Compatibility with other plugins
+
+This plugin should play nicely with most other plugins.
+E.g. adding the `webpack.optimize.UglifyJsPlugin` plugin to the plugins array *after* the `WrapperPlugin` will result in
+the wrapper text also being minified.
+
+## License
+
+[ISC](https://opensource.org/licenses/ISC)
