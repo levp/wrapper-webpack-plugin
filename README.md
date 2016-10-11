@@ -106,9 +106,7 @@ module.exports = {
 
   plugins: [
     new WrapperPlugin({
-      header: function () {
-        return template(tpl)(pkg);
-      }
+      header: template(tpl)(pkg)
     })
   ]
 };
