@@ -23,7 +23,7 @@ function WrapperPlugin(args) {
 function apply(compiler) {
 	var header = this.header;
 	var footer = this.footer;
-	var test = this.test;
+	var tester = {test: this.test};
 
 	compiler.plugin('compilation', function (compilation) {
 		compilation.plugin('optimize-chunk-assets', function (chunks, done) {
@@ -43,7 +43,6 @@ function apply(compiler) {
 	}
 
 	function wrapChunks(compilation, chunks) {
-		const tester = {test: test};
 		chunks.forEach(function (chunk) {
 			chunk.files.forEach(function (fileName) {
 				if (ModuleFilenameHelpers.matchObject(tester, fileName)) {
