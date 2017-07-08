@@ -47,7 +47,7 @@ module.exports = {
 
 ## Example configuration #2
 
-Prepends bundle with a doc comment:
+Prepends bundles with a doc comment:
 
 ```javascript
 var WrapperPlugin = require('wrapper-webpack-plugin');
