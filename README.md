@@ -16,7 +16,7 @@ name of the output file as an argument.
 
 ```
 function WrapperPlugin({
-    test: RegExp, string,
+    test: string | RegExp,
     header: string | function,
     footer: string | function
 })
