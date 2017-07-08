@@ -1,4 +1,4 @@
-#A webpack plugin that wraps output files (chunks) with custom text or code.
+# A webpack plugin that wraps output files (chunks) with custom text or code.
 
 ## Installation
 
