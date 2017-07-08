@@ -7,6 +7,7 @@ var ModuleFilenameHelpers = require("webpack/lib/ModuleFilenameHelpers");
  * @param args
  * @param {string|function} [args.header]
  * @param {string|function} [args.footer]
+ * @param {string|RegExp} [args.test]
  * @constructor
  */
 function WrapperPlugin(args) {
