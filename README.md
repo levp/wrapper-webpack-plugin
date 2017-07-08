@@ -35,7 +35,7 @@ module.exports = {
   plugins: [
     // strict mode for the whole bundle
     new WrapperPlugin({
-      test: /\.js($|\?)/i,
+      test: /\.js$/, // only wrap output of bundle files with '.js' extension 
       header: '(function () { "use strict";\n',
       footer: '\n})();'
     })
