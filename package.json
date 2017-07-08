@@ -1,26 +1,26 @@
 {
-	"name": "wrapper-webpack-plugin",
-	"version": "0.1.11",
-	"description": "Wraps output files (chunks) with custom text or code.",
-	"main": "wrapper-webpack-plugin.js",
-	"author": "levp",
-	"license": "ISC",
-	"dependencies": {
-		"webpack-core": "^0.6.8"
-	},
-	"files": [
-		"wrapper-webpack-plugin.js"
-	],
-	"keywords": [
-		"webpack",
-		"plugin"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/levp/wrapper-webpack-plugin.git"
-	},
-	"bugs": {
-		"url": "https://github.com/levp/wrapper-webpack-plugin/issues"
-	},
-	"homepage": "https://github.com/levp/wrapper-webpack-plugin#readme"
+  "name": "wrapper-webpack-plugin",
+  "version": "0.1.11",
+  "description": "Wraps output files (chunks) with custom text or code.",
+  "main": "wrapper-webpack-plugin.js",
+  "author": "levp",
+  "license": "ISC",
+  "dependencies": {
+    "webpack-core": "^0.6.8"
+  },
+  "files": [
+    "wrapper-webpack-plugin.js"
+  ],
+  "keywords": [
+    "webpack",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levp/wrapper-webpack-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/levp/wrapper-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/levp/wrapper-webpack-plugin#readme"
 }
