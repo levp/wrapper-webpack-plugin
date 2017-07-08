@@ -16,6 +16,7 @@ name of the output file as an argument.
 
 ```
 function WrapperPlugin({
+    test: RegExp, string,
     header: string | function,
     footer: string | function
 })
@@ -34,6 +35,7 @@ module.exports = {
   plugins: [
     // strict mode for the whole bundle
     new WrapperPlugin({
+      test: /\.js($|\?)/i,
       header: '(function () { "use strict";\n',
       footer: '\n})();'
     })

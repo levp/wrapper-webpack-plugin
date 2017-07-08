@@ -1,6 +1,7 @@
 'use strict';
 
 var ConcatSource = require('webpack-core/lib/ConcatSource');
+const ModuleFilenameHelpers = require("webpack/lib/ModuleFilenameHelpers")
 
 /**
  * @param args
@@ -15,11 +16,13 @@ function WrapperPlugin(args) {
 
   this.header = args.hasOwnProperty('header') ? args.header : '';
   this.footer = args.hasOwnProperty('footer') ? args.footer : '';
+  this.test = args.hasOwnProperty('test') ? args.test : '';
 }
 
 function apply(compiler) {
   var header = this.header;
   var footer = this.footer;
+  var test = this.test;
 
   compiler.plugin('compilation', function (compilation) {
     compilation.plugin('optimize-chunk-assets', function (chunks, done) {
@@ -39,10 +42,14 @@ function apply(compiler) {
   }
 
   function wrapChunks(compilation, chunks) {
-    chunks.forEach(function (chunk) {
-      chunk.files.forEach(function (fileName) {
-        wrapFile(compilation, fileName);
-      });
+    var files = [];
+    chunks.forEach(chunk => files.push.apply(files, chunk.files));
+    files.push.apply(files, compilation.additionalChunkAssets);
+    if (test) {
+      files = files.filter(file => ModuleFilenameHelpers.matchObject({test}, file));
+    }
+    files.forEach(file => {
+      wrapFile(compilation, file);
     });
   }
 }
