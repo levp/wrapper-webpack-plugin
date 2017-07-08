@@ -12,6 +12,8 @@ be *prepended* to the output file, footer text will be *appended*. These can be 
 will simply be a appended/prepended to the file output. A function is expected to return a string, and will receive the
 name of the output file as an argument.
 
+An optional `test` property (a string or a `RegExp` object) can control which output files are affected; otherwise all output files will be wrapped.
+
 ## API
 
 ```
@@ -24,7 +26,7 @@ function WrapperPlugin({
 
 ## Example configuration #1
 
-Wraps bundles in a self invoking function and enables strict mode:
+Wraps bundle files with '.js' extension in a self invoking function and enables strict mode:
 
 ```javascript
 var WrapperPlugin = require('wrapper-webpack-plugin');
