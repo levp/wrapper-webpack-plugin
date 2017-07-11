@@ -5,6 +5,10 @@
 Install locally using npm:  
 `npm i wrapper-webpack-plugin`
 
+#### Webpack version compatibility
+
+As of version 1.0.0 of this plugin it now works with all versions of webpack, including version 1, 2, and 3.
+
 ## Usage
 
 The `WrapperPlugin` class has a single parameter, an object with a `header` and/or `footer` properties. Header text will
