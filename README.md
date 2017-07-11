@@ -7,7 +7,7 @@ Install locally using npm:
 
 #### Webpack version compatibility
 
-As of version 1.0.0 of this plugin it now works with all versions of webpack, including version 1, 2, and 3.
+Works with *all* current versions of webpack, including 1, 2, and 3.
 
 ## Usage
 
