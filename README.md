@@ -5,7 +5,7 @@
 Install locally using npm:  
 `npm i wrapper-webpack-plugin`
 
-#### Webpack version compatibility
+#### Webpack compatibility
 
 Works with *all* current versions of webpack, including 1, 2, and 3.
 
