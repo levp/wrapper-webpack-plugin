@@ -1,6 +1,6 @@
 'use strict';
 
-var ConcatSource = require('webpack-core/lib/ConcatSource');
+var ConcatSource = require("webpack-sources").ConcatSource;
 var ModuleFilenameHelpers = require("webpack/lib/ModuleFilenameHelpers");
 
 /**
