@@ -7,7 +7,8 @@ Install locally using npm:
 
 #### Webpack compatibility
 
-Works with *all* current versions of webpack, including 1, 2, and 3.
+Newest version works only with webpack 4.\
+For webpack 3, 2, or 1 use [version 1](https://github.com/levp/wrapper-webpack-plugin/tree/v1) of the plugin with `npm i -D wrapper-webpack-plugin@1` 
 
 ## Usage
 
@@ -33,7 +34,7 @@ function WrapperPlugin({
 Wraps bundle files with '.js' extension in a self invoking function and enables strict mode:
 
 ```javascript
-var WrapperPlugin = require('wrapper-webpack-plugin');
+const WrapperPlugin = require('wrapper-webpack-plugin');
 
 module.exports = {
   // other webpack config here
@@ -54,7 +55,7 @@ module.exports = {
 Prepends bundles with a doc comment:
 
 ```javascript
-var WrapperPlugin = require('wrapper-webpack-plugin');
+const WrapperPlugin = require('wrapper-webpack-plugin');
 
 module.exports = {
   // other webpack config here
@@ -71,6 +72,32 @@ module.exports = {
 
 ## Example configuration #3
 
+Accessing file name, build hash, and chunk hash at runtime.
+
+```javascript
+const WrapperPlugin = require('wrapper-webpack-plugin');
+
+module.exports = {
+  // other webpack config here
+	
+  output: {
+    filename: '[name].[chunkhash].js'
+  },
+  plugins: [
+    new WrapperPlugin({
+      header: `(function (FILE_NAME, BUILD_HASH, CHUNK_HASH) {`,
+      footer(fileName, args) {
+        return `})('${fileName}', '${args.hash}', '${args.chunkhash}');`;
+        // note: args.hash and args.chunkhash correspond to the [hash] and [chunkhash] 
+        // placeholders you can specify in the output.filename option.
+      }
+    })
+  ]
+};
+```
+
+## Example configuration #4
+
 Keeping header in a separate file:
 
 file: `header.js`
@@ -82,10 +109,10 @@ file: `header.js`
 
 file: `webpack.config`
 ```javascript
-var fs = require('fs');
-var WrapperPlugin = require('wrapper-webpack-plugin');
+const fs = require('fs');
+ WrapperPlugin = require('wrapper-webpack-plugin');
 
-var headerDoc = fs.readFileSync('./header.js', 'utf8');
+const headerDoc = fs.readFileSync('./header.js', 'utf8');
 
 module.exports = {
   // other webpack config here
@@ -98,16 +125,16 @@ module.exports = {
 };
 ```
 
-## Example configuration #4
+## Example configuration #5
 
 A slightly more complex example using `lodash` templates:
 
 ```javascript
-var WrapperPlugin = require('wrapper-webpack-plugin');
-var template = require('lodash.template');
-var pkg = require('./package.json');
+const WrapperPlugin = require('wrapper-webpack-plugin');
+const template = require('lodash.template');
+const pkg = require('./package.json');
 
-var tpl = '/*! <%= name %> v<%= version %> | <%= author %> */\n';
+const tpl = '/*! <%= name %> v<%= version %> | <%= author %> */\n';
 
 module.exports = {
   // other webpack config here
