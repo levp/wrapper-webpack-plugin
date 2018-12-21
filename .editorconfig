@@ -9,3 +9,6 @@ insert_final_newline = true
 [package.json]
 indent_style = space
 indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
