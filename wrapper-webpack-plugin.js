@@ -11,6 +11,7 @@ class WrapperPlugin {
 
 		this.header = args.hasOwnProperty('header') ? args.header : '';
 		this.footer = args.hasOwnProperty('footer') ? args.footer : '';
+		this.afterOptimizations = args.hasOwnProperty('afterOptimizations') ? !!args.afterOptimizations : false;
 		this.test = args.hasOwnProperty('test') ? args.test : '';
 	}
 
@@ -20,10 +21,16 @@ class WrapperPlugin {
 		const tester = {test: this.test};
 
 		compiler.hooks.compilation.tap('WrapperPlugin', (compilation) => {
-			compilation.hooks.optimizeChunkAssets.tapAsync('WrapperPlugin', (chunks, done) => {
-				wrapChunks(compilation, chunks, footer, header);
-				done();
-			})
+			if (this.afterOptimizations) {
+				compilation.hooks.afterOptimizeChunkAssets.tap('WrapperPlugin', (chunks) => {
+					wrapChunks(compilation, chunks, footer, header);
+				});
+			} else {
+				compilation.hooks.optimizeChunkAssets.tapAsync('WrapperPlugin', (chunks, done) => {
+					wrapChunks(compilation, chunks, footer, header);
+					done();
+				})
+			}
 		});
 
 		function wrapFile(compilation, fileName, chunkHash) {
