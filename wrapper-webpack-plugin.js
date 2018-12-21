@@ -4,6 +4,17 @@ const ConcatSource = require("webpack-sources").ConcatSource;
 const ModuleFilenameHelpers = require("webpack/lib/ModuleFilenameHelpers");
 
 class WrapperPlugin {
+
+	/**
+	 * @param {Object} args
+	 * @param {string | Function} [args.header]  Text that will be prepended to an output file.
+	 * @param {string | Function} [args.footer] Text that will be appended to an output file.
+	 * @param {string | RegExp} [args.test] Tested against output file names to check if they should be affected by this
+	 * plugin.
+	 * @param {boolean} [args.afterOptimizations=false] Indicating whether this plugin should be activated before
+	 * (`false`) or after (`true`) the optimization stage. Example use case: Set this to true if you want to avoid
+	 * minification from affecting the text added by this plugin.
+	 */
 	constructor(args) {
 		if (typeof args !== 'object') {
 			throw new TypeError('Argument "args" must be an object.');
