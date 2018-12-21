@@ -7,8 +7,8 @@ Install locally using npm:
 
 #### Webpack compatibility
 
-Newest version works only with webpack 4.\
-For webpack 3, 2, or 1 use [version 1](https://github.com/levp/wrapper-webpack-plugin/tree/v1) of the plugin with `npm i -D wrapper-webpack-plugin@1` 
+Version 2 of this plugin only works with webpack >=4.\
+For webpack <4 use [version 1](https://github.com/levp/wrapper-webpack-plugin/tree/v1) of the plugin with `npm i -D wrapper-webpack-plugin@1` 
 
 ## Usage
 
