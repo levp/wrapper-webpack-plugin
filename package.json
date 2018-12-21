@@ -5,6 +5,9 @@
   "main": "wrapper-webpack-plugin.js",
   "author": "levp",
   "license": "ISC",
+  "peerDependencies": {
+    "webpack": ">=2"
+  },
   "dependencies": {
     "webpack-sources": "^1.1.0"
   },
