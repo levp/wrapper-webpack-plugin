@@ -40,7 +40,7 @@ class WrapperPlugin {
 				compilation.hooks.optimizeChunkAssets.tapAsync('WrapperPlugin', (chunks, done) => {
 					wrapChunks(compilation, chunks, footer, header);
 					done();
-				})
+				});
 			}
 		});
 
@@ -49,24 +49,31 @@ class WrapperPlugin {
 			const footerContent = (typeof footer === 'function') ? footer(fileName, chunkHash) : footer;
 
 			compilation.assets[fileName] = new ConcatSource(
-					String(headerContent),
-					compilation.assets[fileName],
-					String(footerContent));
+				String(headerContent),
+				compilation.assets[fileName],
+				String(footerContent),
+			);
 		}
 
 		function wrapChunks(compilation, chunks) {
-			chunks.forEach(chunk => {
+			for (const chunk of chunks) {
+				if (!chunk.rendered) {
+					// Skip already rendered (cached) chunks
+					// to avoid rebuilding unchanged code.
+					continue;
+				}
+
 				const args = {
 					hash: compilation.hash,
-					chunkhash: chunk.hash
+					chunkhash: chunk.hash,
 				};
-				chunk.files.forEach(fileName => {
+				for (const fileName of chunk.files) {
 					if (ModuleFilenameHelpers.matchObject(tester, fileName)) {
 						wrapFile(compilation, fileName, args);
 					}
-				});
-			});
-		}
+				}
+			}
+		} // wrapChunks
 	}
 }
 
