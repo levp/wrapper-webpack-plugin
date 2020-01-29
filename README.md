@@ -20,7 +20,7 @@ name of the output file as an argument.
 An optional `test` property (a string or a `RegExp` object) can control which output files are affected; otherwise all output files will be wrapped.
 
 *New in 2.1:*  
-The optional `afterOptimization` property can be used to avoid having the added text affected by the optimization stage, e.g. if you don't want it to be minified. 
+The optional `afterOptimizations` property can be used to avoid having the added text affected by the optimization stage, e.g. if you don't want it to be minified. 
 
 ## API
 
@@ -29,7 +29,7 @@ function WrapperPlugin({
     test: string | RegExp,
     header: string | function,
     footer: string | function,
-    afterOptimization: bool // default: false
+    afterOptimizations: bool // default: false
 })
 ```
 
