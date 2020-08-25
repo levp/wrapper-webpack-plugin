@@ -24,12 +24,19 @@ class WrapperPlugin {
 		this.footer = args.hasOwnProperty('footer') ? args.footer : '';
 		this.afterOptimizations = args.hasOwnProperty('afterOptimizations') ? !!args.afterOptimizations : false;
 		this.test = args.hasOwnProperty('test') ? args.test : '';
+		
+		// Webpack has an internal cache based on Source identity that it uses to determine 
+		// whether or not to re-emit assets. We use this cache to ensure that we only re-emit
+		// if the contents of the asset have changed, by re-using the previous Source object
+		// otherwise to maintain this integrity.
+		this._cache = new WeakMap();
 	}
 
 	apply(compiler) {
 		const header = this.header;
 		const footer = this.footer;
 		const tester = {test: this.test};
+		const cache = this._cache;
 
 		compiler.hooks.compilation.tap('WrapperPlugin', (compilation) => {
 			if (this.afterOptimizations) {
@@ -48,11 +55,31 @@ class WrapperPlugin {
 			const headerContent = (typeof header === 'function') ? header(fileName, chunkHash) : header;
 			const footerContent = (typeof footer === 'function') ? footer(fileName, chunkHash) : footer;
 
-			compilation.assets[fileName] = new ConcatSource(
-				String(headerContent),
-				compilation.assets[fileName],
-				String(footerContent),
-			);
+			const headerContentString = String(headerContent);
+			const footerContentString = String(footerContent);
+
+			const cacheKey = compilation.assets[fileName];
+			let content = null;
+			if (cache.has(cacheKey)) {
+				content = cache.get(cacheKey);
+				if (content.header !== headerContentString || content.footer !== footerContentString) {
+					content = null;
+				}
+			} 
+			
+			if (!content) {
+				content = {
+					header: headerContentString,
+					footer: footerContentString,
+					source: new ConcatSource(
+						headerContentString,
+						compilation.assets[fileName],
+						footerContentString) 
+				}
+				cache.set(compilation.assets[fileName], content)
+			}
+
+			compilation.assets[fileName] = content.source;
 		}
 
 		function wrapChunks(compilation, chunks) {
