@@ -1,6 +1,6 @@
 {
   "name": "wrapper-webpack-plugin",
-  "version": "2.2.0-beta.0",
+  "version": "2.2.0-beta.1",
   "description": "Wraps output files (chunks) with custom text or code.",
   "main": "wrapper-webpack-plugin.js",
   "author": "levp",
@@ -8,9 +8,7 @@
   "peerDependencies": {
     "webpack": ">=2"
   },
-  "dependencies": {
-    "webpack-sources": "^1.1.0"
-  },
+  "dependencies": {},
   "files": [
     "wrapper-webpack-plugin.js"
   ],
