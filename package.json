@@ -8,7 +8,6 @@
   "peerDependencies": {
     "webpack": ">=2"
   },
-  "dependencies": {},
   "files": [
     "wrapper-webpack-plugin.js"
   ],
