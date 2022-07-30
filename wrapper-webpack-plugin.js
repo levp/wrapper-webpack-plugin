@@ -26,8 +26,8 @@ class WrapperPlugin {
 	}
 
 	apply(compiler) {
-		const WebpackSources = compiler.webpack.sources;
-		const ConcatSource = WebpackSources.ConcatSource;
+		const ConcatSource = compiler.webpack.sources.ConcatSource;
+
 		const header = this.header;
 		const footer = this.footer;
 		const tester = {test: this.test};
