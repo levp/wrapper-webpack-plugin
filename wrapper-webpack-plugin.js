@@ -58,12 +58,6 @@ class WrapperPlugin {
 
 		function wrapChunks(compilation, chunks) {
 			for (const chunk of chunks) {
-				if (!chunk.rendered) {
-					// Skip already rendered (cached) chunks
-					// to avoid rebuilding unchanged code.
-					continue;
-				}
-
 				const args = {
 					hash: compilation.hash,
 					chunkhash: chunk.hash,
