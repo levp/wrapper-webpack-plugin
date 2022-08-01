@@ -3,7 +3,7 @@
 ## Installation
 
 Install locally using npm:  
-`npm i wrapper-webpack-plugin`
+`npm i -D wrapper-webpack-plugin`
 
 #### Webpack compatibility
 
