@@ -26,7 +26,7 @@ class WrapperPlugin {
 	}
 
 	apply(compiler) {
-		const ConcatSource = compiler.webpack.sources.ConcatSource;
+		const ConcatSource = getSourceConcatenator(compiler);
 
 		const header = this.header;
 		const footer = this.footer;
@@ -50,9 +50,9 @@ class WrapperPlugin {
 			const footerContent = (typeof footer === 'function') ? footer(fileName, chunkHash) : footer;
 
 			compilation.assets[fileName] = new ConcatSource(
-				String(headerContent),
-				compilation.assets[fileName],
-				String(footerContent),
+					String(headerContent),
+					compilation.assets[fileName],
+					String(footerContent),
 			);
 		}
 
@@ -73,3 +73,13 @@ class WrapperPlugin {
 }
 
 module.exports = WrapperPlugin;
+
+function getSourceConcatenator(compiler) {
+	const webpack = compiler.webpack;
+	if (webpack) {
+		// webpack v5
+		return webpack.sources.ConcatSource;
+	}
+	// webpack v4
+	return require("webpack-sources").ConcatSource;
+}
