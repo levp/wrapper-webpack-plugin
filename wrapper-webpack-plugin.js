@@ -5,7 +5,7 @@ const ModuleFilenameHelpers = require("webpack/lib/ModuleFilenameHelpers");
 class WrapperPlugin {
 
 	/**
-	 * @param {import('./type.d').Options} args
+	 * @param {Object} args
 	 * @param {string | Function} [args.header]  Text that will be prepended to an output file.
 	 * @param {string | Function} [args.footer] Text that will be appended to an output file.
 	 * @param {string | RegExp} [args.test] Tested against output file names to check if they should be affected by this
