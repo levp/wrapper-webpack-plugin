@@ -82,15 +82,21 @@ class WrapperPlugin {
 
 		function processAssets(compilation, assets) {
 			for (const asset in assets) {
-				// @note There doesn't seem to be a way to get the hash from Source
+				/**
+				 * @note There doesn't seem to be a way to get the hash from Source, so
+				 * not using wrapFile function.
+				 */
 				const headerContent = (typeof header === 'function') ? header(fileName) : header;
 				const footerContent = (typeof footer === 'function') ? footer(fileName) : footer;
 
-				compilation.assets[asset] = new ConcatSource(
-					String(headerContent),
-					compilation.assets[asset],
-					String(footerContent)
-				);
+				if (ModuleFilenameHelpers.matchObject(tester, asset))
+				{
+					compilation.assets[asset] = new ConcatSource(
+						String(headerContent),
+						compilation.assets[asset],
+						String(footerContent)
+					);
+				}
 			}
 		}
 	}
