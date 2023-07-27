@@ -38,10 +38,20 @@ class WrapperPlugin {
 					wrapChunks(compilation, chunks, footer, header);
 				});
 			} else {
-				compilation.hooks.optimizeChunkAssets.tapAsync('WrapperPlugin', (chunks, done) => {
-					wrapChunks(compilation, chunks, footer, header);
-					done();
-				});
+				// Keep support for optimizeChunkAssets on older Webpack versions
+				if (compilation.hooks.processAssets) {
+					compilation.hooks.processAssets.tapAsync({
+						name: 'WrapperPlugin',
+						stage: 'compilation.PROCESS_ASSETS_STAGE_ADDITIONS'
+					}, (chunks) => {
+						processAssets(compilation, chunks);
+					});
+				} else {
+					compilation.hooks.optimizeChunkAssets.tapAsync('WrapperPlugin', (chunks, done) => {
+						wrapChunks(compilation, chunks, footer, header);
+						done();
+					});
+				}
 			}
 		});
 
@@ -69,6 +79,26 @@ class WrapperPlugin {
 				}
 			}
 		} // wrapChunks
+
+		function processAssets(compilation, assets) {
+			for (const asset in assets) {
+				/**
+				 * @note There doesn't seem to be a way to get the hash from Source, so
+				 * not using wrapFile function.
+				 */
+				const headerContent = (typeof header === 'function') ? header(fileName) : header;
+				const footerContent = (typeof footer === 'function') ? footer(fileName) : footer;
+
+				if (ModuleFilenameHelpers.matchObject(tester, asset))
+				{
+					compilation.assets[asset] = new ConcatSource(
+						String(headerContent),
+						compilation.assets[asset],
+						String(footerContent)
+					);
+				}
+			}
+		}
 	}
 }
 
