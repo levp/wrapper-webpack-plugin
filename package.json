@@ -10,7 +10,8 @@
     "webpack": ">=2"
   },
   "files": [
-    "wrapper-webpack-plugin.js"
+    "wrapper-webpack-plugin.js",
+    "type.d.ts"
   ],
   "keywords": [
     "webpack",
